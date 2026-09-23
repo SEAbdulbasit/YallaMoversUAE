@@ -1,3 +1,7 @@
 const form=document.querySelector('#quoteForm');
 document.querySelector('#year').textContent=new Date().getFullYear();
+const menu=document.querySelector('.menu');
+const nav=document.querySelector('#primary-nav');
+menu.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu');menu.querySelector('span').textContent=open?'×':'☰'});
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu');menu.querySelector('span').textContent='☰'}));
 form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form);const msg=`Hi, I need a quote from Yalla Movers.%0A%0AName: ${d.get('name')}%0AMobile: ${d.get('phone')}%0AFrom: ${d.get('from')}%0ATo: ${d.get('to')}%0AService: ${d.get('service')}%0ADetails: ${d.get('details')}`;window.open(`https://wa.me/971526585223?text=${encodeURIComponent(decodeURIComponent(msg))}`,'_blank');document.querySelector('.form-status').textContent='Opening WhatsApp with your enquiry…'});
